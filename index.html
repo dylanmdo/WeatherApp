@@ -1,0 +1,336 @@
+<!doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+
+    <link href="src/css/style.css" rel="stylesheet">
+    <script src="src/js/route.js" type="module"  ></script>
+    <script src="src/js/app.js" type="javascript" ></script>
+
+
+    <title>Weather</title>
+</head>
+<body class="bg-[#131214] text-white">
+
+<header>
+
+    <div class=" bg-[#131214] absolute z-20   right-0 left-0 max-w-screen-xl mx-auto  ">
+        <!---------------NAVBAR--------------->
+        <nav class=" flex  items-center justify-between  py-5 px-3 ">
+            <h1 class="text-4xl font-semibold text-white">Weather</h1>
+
+            <!-- Show on mobile responsive -->
+            <div class="flex items-center md:hidden gap-3 cursor-pointer ">
+                <button class=" hover:opacity-80 p-2 " id="search-icon" data-search-toggler>
+                    <img src="src/assets/magnifying-glass.svg" class="w-8">
+                </button>
+
+
+                <button class=" bg-[#b6a1e5]  p-2 rounded-full hover:opacity-80" data-current-location-btn>
+                    <img src="src/assets/crosshair.svg" class="w-8">
+                </button>
+
+            </div>
+            <!---------------------------->
+
+            <div class="relative hidden md:block">
+                <div class=" md:flex items-center bg-[#1d1c1f] w-full py-3 px-3 rounded-3xl   gap-2 md:block "
+                     id="search-bar-container">
+                    <div class="flex items-center gap-2">
+                        <img src="src/assets/magnifying-glass.svg" class="w-6">
+                        <input type="text" name="" placeholder="Rechercher une ville..."
+                               class="bg-transparent min-w-[250px] outline-0" id="search-bar">
+                    </div>
+                    <img src="src/assets/180-ring.svg" class="animate-spin">
+                </div>
+
+                <div class=" hidden transition-all duration-500  py-3   absolute bg-[#1d1c1f] w-full shadow-2xl rounded-b-3xl  ">
+                    <div class="flex items-center gap-3 py-2 px-3 hover:bg-neutral-900 transition-all duration-400 cursor-pointer">
+                        <img src="src/assets/map-pin.svg">
+                        <div>
+                            <p>Auch</p>
+                            <p class="text-neutral-500">Ville de <span>France</span></p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center gap-3 py-2 px-3 hover:bg-neutral-900 transition-all duration-400 cursor-pointer">
+                        <img src="src/assets/map-pin.svg">
+                        <div>
+                            <p>Auch</p>
+                            <p class="text-neutral-500">Ville de <span>France</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <button class="hidden md:flex items-center bg-[#b6a1e5] py-2 px-3 rounded-3xl gap-2 hover:opacity-80" data-current-location-btn>
+                <img src="src/assets/crosshair.svg">
+                <p class="text-black">Localisation</p>
+            </button>
+
+        </nav>
+
+
+    </div>
+
+    <!--Search BAR Responsive-->
+    <div class="bg-[#131214]   h-full w-full  absolute z-20  md:hidden  search-hide transition-all duration-700 "
+         data-search-view>
+        <div class="flex items-center w-full border-b-[1px] px-3  ">
+            <button class="w-8 cursor-pointer hover:opacity-80" data-search-toggler>
+                <img src="src/assets/arrow-left.svg" class="w-8">
+            </button>
+            <input type="text" placeholder="Rechercher une ville..."
+                   class="bg-transparent py-5 px-3 focus:outline-none w-full" data-search-field>
+            <img src="src/assets/180-ring.svg" class="animate-spin w-8 invisible " data-search-load-icon>
+        </div>
+        <div class="py-3" data-search-result>
+
+        </div>
+
+
+    </div>
+
+
+</header>
+
+
+
+<main>
+    <div class="max-w-screen-xl mx-auto  lg:flex lg:gap-10 px-3 pt-28" data-container >
+        <aside class="md:grid grid-cols-2 md:items-center md:gap-5 lg:block  ">
+            <div class="p-5 md:p-8 w-full  bg-[#1d1c1f] rounded-2xl h-72" data-current-weather>
+
+            </div>
+            <div class="py-5 w-full " >
+                <p class="text-xl py-3 md:hidden lg:block ">5 Prochains Jours</p>
+                <div class="px-5 md:p-8 w-full bg-[#1d1c1f] rounded-2xl h-72 py-10 " data-weather-forecast>
+                    <p class="text-xl hidden md:block lg:hidden">5 Prochains Jours</p>
+                    <div class="lg:w-60 ">
+                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
+                            <img src="src/assets/02n.png" class="w-10">
+                            <li>31°C</li>
+                            <li>30 Oct</li>
+                            <li>Lundi</li>
+                        </ul>
+                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
+                            <img src="src/assets/02n.png" class="w-10">
+                            <li>31°C</li>
+                            <li>30 Oct</li>
+                            <li>Mardi</li>
+                        </ul>
+                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
+                            <img src="src/assets/02n.png" class="w-10">
+                            <li>31°C</li>
+                            <li>30 Oct</li>
+                            <li>Mercredi</li>
+                        </ul>
+                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
+                            <img src="src/assets/02n.png" class="w-10">
+                            <li>31°C</li>
+                            <li>30 Oct</li>
+                            <li>Jeudi</li>
+                        </ul>
+                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
+                            <img src="src/assets/02n.png" class="w-10">
+                            <li>31°C</li>
+                            <li>30 Oct</li>
+                            <li>Vendredi</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="w-full">
+            <div class="p-5 md:p-8  bg-[#1d1c1f] rounded-2xl " >
+                <p class="text-xl pb-5">Faits marquants du jour</p>
+                <div class="grid lg:grid-cols-2 gap-5 " data-highlight>
+                    <div class="grid gap-5">
+                        <div class="bg-[#1a191c]  p-5 rounded-2xl h-52  ">
+                            <div class=" flex items-center justify-between pb-10">
+                                <p>Indice de Qualité de l'Air</p>
+                                <span class="inline-flex items-center justify-center rounded-full bg-red-100 px-2.5 py-0.5 text-red-700"><p
+                                        class="whitespace-nowrap text-sm">Mauvais</p></span>
+                            </div>
+                            <div class="flex  items-center gap-2">
+                                <img src="src/assets/wind-thin.svg" class="w-8">
+                                <div class="grid grid-cols-2 gap-2 md:grid-cols-4 w-full justify-items-center">
+                                    <div>
+                                        <p class="text-xl">65.1</p>
+                                        <p>PM</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xl">25.5</p>
+                                        <p>SO<span class="text-sm">2</span></p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xl">25.4</p>
+                                        <p>NO<span class="text-sm">2</span></p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xl">134</p>
+                                        <p>O<span class="text-sm">3</span></p>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-5">
+                            <div class="p-5   bg-[#1a191c] rounded-2xl">
+                                <p class="py-2">Humidité</p>
+                                <img src="src/assets/drop-thin.svg" class="w-8">
+                                <p class="text-4xl font-light">45<span class="text-lg">%</span></p>
+                            </div>
+
+                            <div class="p-5   bg-[#1a191c] rounded-2xl">
+                                <p class="py-2">Pression</p>
+                                <img src="src/assets/50n.png" class="w-8">
+                                <p class="text-4xl font-light">1010<span class="text-lg">hpa</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-------------------------->
+                    <div class="grid gap-5">
+                        <div class="bg-[#1a191c]  p-5 rounded-2xl h-52  ">
+                            <p class="pb-10">Lever et Coucher du soleil</p>
+                            <div class="grid grid-cols-2 items-center gap-2">
+                                <div>
+                                    <img src="src/assets/sun-light.svg" class="w-8">
+                                    <p class="text-sm">Lever</p>
+                                    <p class="text-2xl">6:45</p>
+                                </div>
+                                <div>
+                                    <img src="src/assets/moon-light.svg" class="w-8">
+                                    <p class="text-sm">Coucher</p>
+                                    <p class="text-2xl">21:45</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-2 gap-5">
+                            <div class="p-5   bg-[#1a191c] rounded-2xl">
+                                <p class="py-2">Visibilité</p>
+                                <img src="src/assets/eye-thin.svg" class="w-8">
+                                <p class="text-4xl font-light">3<span class="text-lg">Km</span></p>
+                            </div>
+
+                            <div class="p-5   bg-[#1a191c] rounded-2xl">
+                                <p class="py-2">Ressenti</p>
+                                <img src="src/assets/thermometer-hot-thin.svg" class="w-8">
+                                <p class="text-4xl font-light relative">25°<span class="text-lg absolute top-1">C</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="py-5 " >
+                <p class="text-xl">Aujourd'hui</p>
+                <div class="overflow-x-scroll scrollbar-hide" data-forecast-hourly>
+                    <ul class=" grid grid-cols-8 gap-x-28  lg:grid-cols-6  xl:grid-cols-8 gap-y-5 lg:gap-x-5 ">
+                        <li class="grid justify-items-center py-3   w-24  bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
+                            <p>8:00</p>
+                            <img src="src/assets/02n.png" class="w-10">
+                            <p>25°</p>
+                        </li>
+
+
+                    </ul>
+
+                </div>
+
+            </div>
+        </div>
+
+
+    </div>
+
+    <div class="bg-[#131214]  absolute top-0 bottom-0 right-0 left-0 z-10 flex justify-center items-center invisible" data-loading>
+        <img src="src/assets/180-ring.svg" class="animate-spin absolute w-10 ">
+    </div>
+
+
+</main>
+
+
+
+
+
+</body>
+</html>
