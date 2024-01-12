@@ -1,335 +1,102 @@
 <!doctype html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
 
     <link href="src/css/style.css" rel="stylesheet">
-    <script src="src/js/route.js" type="module"  ></script>
-    <script src="src/js/app.js" type="javascript" ></script>
-
-
+    <script src="src/js/app.js" type="module" defer></script>
+    <script src="src/js/route.js" type="module" defer></script>
+    <script src="src/js/module.js" type="module" defer></script>
+    <link rel="shortcut icon" href="/assets/favicon.png" type="image/x-icon">
     <title>Weather</title>
 </head>
-<body class="bg-[#131214] text-white">
+<body class="bg-[#131214] text-white ">
 
 <header>
+    <div class="bg-[#131214] absolute z-20 right-0 left-0 max-w-screen-xl mx-auto">
 
-    <div class=" bg-[#131214] absolute z-20   right-0 left-0 max-w-screen-xl mx-auto  ">
-        <!---------------NAVBAR--------------->
-        <nav class=" flex  items-center justify-between  py-5 px-3 ">
-            <h1 class="text-4xl font-semibold text-white">Weather</h1>
+        <!-- Barre de navigation -->
+        <nav class="flex items-center justify-between py-5 px-3">
+            <a href="/">
+                <h1 class="text-4xl font-semibold text-white">Weather</h1>
+            </a>
 
-            <!-- Show on mobile responsive -->
-            <div class="flex items-center md:hidden gap-3 cursor-pointer ">
-                <button class=" hover:opacity-80 p-2 " id="search-icon" data-search-toggler>
-                    <img src="src/assets/magnifying-glass.svg" class="w-8">
+            <!-- Icônes et boutons pour la recherche et la localisation (visible sur les petits écrans) -->
+            <div class="flex items-center md:hidden gap-3 cursor-pointer">
+                <button class="hover:opacity-80 p-2" id="search-icon" data-search-toggler>
+                    <img src="/assets/magnifying-glass.svg" alt="Search" class="w-8">
                 </button>
 
-
-                <button class=" bg-[#b6a1e5]  p-2 rounded-full hover:opacity-80" data-current-location-btn>
-                    <img src="src/assets/crosshair.svg" class="w-8">
+                <button type="button" class="bg-[#b6a1e5] p-2 rounded-full hover:opacity-80" data-current-location-btn>
+                    <img src="/assets/crosshair.svg" alt="Current Location" class="w-8">
                 </button>
-
             </div>
-            <!---------------------------->
 
-            <div class="relative hidden md:block">
-                <div class=" md:flex items-center bg-[#1d1c1f] w-full py-3 px-3 rounded-3xl   gap-2 md:block "
-                     id="search-bar-container">
-                    <div class="flex items-center gap-2">
-                        <img src="src/assets/magnifying-glass.svg" class="w-6">
-                        <input type="text" name="" placeholder="Rechercher une ville..."
-                               class="bg-transparent min-w-[250px] outline-0" id="search-bar">
+            <div class="bg-[#131214] max-md:top-0 max-md:left-0 max-md:h-full max-md:w-full max-md:absolute max-md:z-20 max-md:search-hide md:relative ease-in-out max-md:duration-700"
+                 data-search-view>
+                <!-- Barre de recherche avec icônes et champ de recherche -->
+                <div class="flex items-center w-full max-md:border-b-[1px] px-3 md:flex md:bg-[#1d1c1f] md:rounded-3xl md:gap-2">
+                    <button class="w-8 cursor-pointer hover:opacity-80 md:hidden" data-search-toggler>
+                        <img src="/assets/arrow-left.svg" alt="Back" class="w-8">
+                    </button>
+                    <div class="flex items-center gap-2 w-full">
+                        <img src="/assets/magnifying-glass.svg" alt="Search" class="w-6 hidden md:block">
+                        <input type="text" placeholder="Rechercher une ville..."
+                               class="bg-transparent py-5 md:py-3 px-3 md:px-0 focus:outline-none md:min-w-[250px]"
+                               data-search-field>
                     </div>
-                    <img src="src/assets/180-ring.svg" class="animate-spin">
+                    <img src="/assets/180-ring.svg" alt="Loading" class="animate-spin w-8 invisible" data-search-load-icon>
                 </div>
 
-                <div class=" hidden transition-all duration-500  py-3   absolute bg-[#1d1c1f] w-full shadow-2xl rounded-b-3xl  ">
-                    <div class="flex items-center gap-3 py-2 px-3 hover:bg-neutral-900 transition-all duration-400 cursor-pointer">
-                        <img src="src/assets/map-pin.svg">
-                        <div>
-                            <p>Auch</p>
-                            <p class="text-neutral-500">Ville de <span>France</span></p>
-                        </div>
-                    </div>
-
-                    <div class="flex items-center gap-3 py-2 px-3 hover:bg-neutral-900 transition-all duration-400 cursor-pointer">
-                        <img src="src/assets/map-pin.svg">
-                        <div>
-                            <p>Auch</p>
-                            <p class="text-neutral-500">Ville de <span>France</span></p>
-                        </div>
-                    </div>
+                <!-- Résultats de recherche (visible sur les petits écrans) -->
+                <div class="hidden md:absolute md:bg-[#1d1c1f] md:w-full md:shadow-2xl md:rounded-lg md:mt-1"
+                     data-search-result>
                 </div>
             </div>
 
-            <button class="hidden md:flex items-center bg-[#b6a1e5] py-2 px-3 rounded-3xl gap-2 hover:opacity-80" data-current-location-btn>
-                <img src="src/assets/crosshair.svg">
+            <!-- Bouton pour obtenir la localisation actuelle (visible sur les écrans moyens et grands) -->
+            <button type="button" class="hidden md:flex items-center bg-[#b6a1e5] py-2 px-3 rounded-3xl gap-2 hover:opacity-80"
+                    data-current-location-btn>
+                <img src="/assets/crosshair.svg" alt="Current Location">
                 <p class="text-black">Localisation</p>
             </button>
-
         </nav>
-
-
     </div>
-
-    <!--Search BAR Responsive-->
-    <div class="bg-[#131214]   h-full w-full  absolute z-20  md:hidden  search-hide transition-all duration-700 "
-         data-search-view>
-        <div class="flex items-center w-full border-b-[1px] px-3  ">
-            <button class="w-8 cursor-pointer hover:opacity-80" data-search-toggler>
-                <img src="src/assets/arrow-left.svg" class="w-8">
-            </button>
-            <input type="text" placeholder="Rechercher une ville..."
-                   class="bg-transparent py-5 px-3 focus:outline-none w-full" data-search-field>
-            <img src="src/assets/180-ring.svg" class="animate-spin w-8 invisible " data-search-load-icon>
-        </div>
-        <div class="py-3" data-search-result>
-
-        </div>
-
-
-    </div>
-
-
 </header>
 
 
 
-<main>
-    <div class="max-w-screen-xl mx-auto  lg:flex lg:gap-10 px-3 pt-28" data-container >
-        <aside class="md:grid grid-cols-2 md:items-center md:gap-5 lg:block  ">
-            <div class="p-5 md:p-8 w-full  bg-[#1d1c1f] rounded-2xl h-72" data-current-weather>
 
-            </div>
-            <div class="py-5 w-full " >
-                <p class="text-xl py-3 md:hidden lg:block ">5 Prochains Jours</p>
-                <div class="px-5 md:p-8 w-full bg-[#1d1c1f] rounded-2xl h-72 py-10 " data-weather-forecast>
-                    <p class="text-xl hidden md:block lg:hidden">5 Prochains Jours</p>
-                    <div class="lg:w-60 ">
-                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
-                            <img src="src/assets/02n.png" class="w-10">
-                            <li>31°C</li>
-                            <li>30 Oct</li>
-                            <li>Lundi</li>
-                        </ul>
-                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
-                            <img src="src/assets/02n.png" class="w-10">
-                            <li>31°C</li>
-                            <li>30 Oct</li>
-                            <li>Mardi</li>
-                        </ul>
-                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
-                            <img src="src/assets/02n.png" class="w-10">
-                            <li>31°C</li>
-                            <li>30 Oct</li>
-                            <li>Mercredi</li>
-                        </ul>
-                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
-                            <img src="src/assets/02n.png" class="w-10">
-                            <li>31°C</li>
-                            <li>30 Oct</li>
-                            <li>Jeudi</li>
-                        </ul>
-                        <ul class="grid grid-cols-4 items-center w-full  md:justify-items-start">
-                            <img src="src/assets/02n.png" class="w-10">
-                            <li>31°C</li>
-                            <li>30 Oct</li>
-                            <li>Vendredi</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+<main class=" ">
+    <div class="max-w-screen-xl mx-auto  lg:flex lg:gap-10 px-3 pt-28  " data-container>
+        <aside class="md:grid grid-cols-2  md:items-center md:gap-5 lg:block  ">
+            <!-- Conteneur pour les informations météorologiques actuelles -->
+            <div class="p-5 md:p-8 w-full  bg-[#1d1c1f] rounded-2xl " data-current-weather></div>
+            <!-- Conteneur pour les prévisions météorologiques des 5 prochains Jours -->
+            <div class=" my-10  p-7 bg-[#1d1c1f] rounded-2xl   " data-weather-forecast></div>
         </aside>
         <div class="w-full">
-            <div class="p-5 md:p-8  bg-[#1d1c1f] rounded-2xl " >
-                <p class="text-xl pb-5">Faits marquants du jour</p>
-                <div class="grid lg:grid-cols-2 gap-5 " data-highlight>
-                    <div class="grid gap-5">
-                        <div class="bg-[#1a191c]  p-5 rounded-2xl h-52  ">
-                            <div class=" flex items-center justify-between pb-10">
-                                <p>Indice de Qualité de l'Air</p>
-                                <span class="inline-flex items-center justify-center rounded-full bg-red-100 px-2.5 py-0.5 text-red-700"><p
-                                        class="whitespace-nowrap text-sm">Mauvais</p></span>
-                            </div>
-                            <div class="flex  items-center gap-2">
-                                <img src="src/assets/wind-thin.svg" class="w-8">
-                                <div class="grid grid-cols-2 gap-2 md:grid-cols-4 w-full justify-items-center">
-                                    <div>
-                                        <p class="text-xl">65.1</p>
-                                        <p>PM</p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xl">25.5</p>
-                                        <p>SO<span class="text-sm">2</span></p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xl">25.4</p>
-                                        <p>NO<span class="text-sm">2</span></p>
-                                    </div>
-                                    <div>
-                                        <p class="text-xl">134</p>
-                                        <p>O<span class="text-sm">3</span></p>
-                                    </div>
-                                </div>
+            <!-- Conteneur pour les faits marquants météorologiques -->
+            <div class="w-full" data-highlight></div>
 
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-5">
-                            <div class="p-5   bg-[#1a191c] rounded-2xl">
-                                <p class="py-2">Humidité</p>
-                                <img src="src/assets/drop-thin.svg" class="w-8">
-                                <p class="text-4xl font-light">45<span class="text-lg">%</span></p>
-                            </div>
-
-                            <div class="p-5   bg-[#1a191c] rounded-2xl">
-                                <p class="py-2">Pression</p>
-                                <img src="src/assets/50n.png" class="w-8">
-                                <p class="text-4xl font-light">1010<span class="text-lg">hpa</span></p>
-                            </div>
-                        </div>
-                    </div>
-                    <!-------------------------->
-                    <div class="grid gap-5">
-                        <div class="bg-[#1a191c]  p-5 rounded-2xl h-52  ">
-                            <p class="pb-10">Lever et Coucher du soleil</p>
-                            <div class="grid grid-cols-2 items-center gap-2">
-                                <div>
-                                    <img src="src/assets/sun-light.svg" class="w-8">
-                                    <p class="text-sm">Lever</p>
-                                    <p class="text-2xl">6:45</p>
-                                </div>
-                                <div>
-                                    <img src="src/assets/moon-light.svg" class="w-8">
-                                    <p class="text-sm">Coucher</p>
-                                    <p class="text-2xl">21:45</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-2 gap-5">
-                            <div class="p-5   bg-[#1a191c] rounded-2xl">
-                                <p class="py-2">Visibilité</p>
-                                <img src="src/assets/eye-thin.svg" class="w-8">
-                                <p class="text-4xl font-light">3<span class="text-lg">Km</span></p>
-                            </div>
-
-                            <div class="p-5   bg-[#1a191c] rounded-2xl">
-                                <p class="py-2">Ressenti</p>
-                                <img src="src/assets/thermometer-hot-thin.svg" class="w-8">
-                                <p class="text-4xl font-light relative">25°<span class="text-lg absolute top-1">C</span></p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="py-5 " >
-                <p class="text-xl">Aujourd'hui</p>
-                <div class="overflow-x-scroll scrollbar-hide" data-forecast-hourly>
-                    <ul class=" grid grid-cols-8 gap-x-28  lg:grid-cols-6  xl:grid-cols-8 gap-y-5 lg:gap-x-5 ">
-                        <li class="grid justify-items-center py-3   w-24  bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3  w-24  bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-                        <li class="grid justify-items-center py-3   w-24 bg-[#1d1c1f] rounded-2xl ">
-                            <p>8:00</p>
-                            <img src="src/assets/02n.png" class="w-10">
-                            <p>25°</p>
-                        </li>
-
-
-                    </ul>
-
-                </div>
-
-            </div>
+            <!-- Conteneur pour les prévisions horaires -->
+            <div class="py-5 grid gap-y-5 " data-forecast-hourly></div>
         </div>
-
-
     </div>
 
-    <div class="bg-[#131214]  absolute top-0 bottom-0 right-0 left-0 z-10 flex justify-center items-center invisible" data-loading>
-        <img src="src/assets/180-ring.svg" class="animate-spin absolute w-10 ">
+    <div class="bg-[#131214]  absolute top-0  left-0 w-full h-screen z-50 flex justify-center items-center  "
+         data-loading>
+        <img src="/assets/180-ring.svg" class="animate-spin absolute w-10 ">
     </div>
-
-
 </main>
 
 
-
+<!-- Section pour le contenu d'erreur 404 -->
+<section class=" bg-[#131214] text-white absolute top-0 left-0 w-full h-full  flex-col justify-center items-center hidden  " data-error-content>
+    <h1 class="text-6xl font-bold">404</h1>
+    <p class="text-3xl">Page non trouvée !</p>
+    <a href="/" class="flex w-max text-xl gap-x-2 bg-[#b7a1e5] text-black py-2 px-3 rounded-3xl mt-5  "> <img src="/assets/house.svg" class="w-6"> Accueil</a>
+</section>
 
 
 </body>

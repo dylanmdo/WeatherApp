@@ -52,7 +52,7 @@ export class Module{
         const date = new Date((timeUnix + timeZone)*1000);
         const hours = date.getUTCHours();
         const minutes = date.getUTCMinutes();
-        return `${hours%12 || 12}:${minutes}`
+        return `${hours%24 || 24}:${minutes}`
     }
 
     /**
@@ -64,7 +64,8 @@ export class Module{
     getHours(timeUnix,timeZone){
         const date = new Date((timeUnix + timeZone)*1000);
         const hours = date.getUTCHours();
-        return `${hours%12 || 12}`
+        const minutes = date.getUTCMinutes();
+        return `${hours%24 || 24}${"h"}`
     }
 
     /**
