@@ -1,4 +1,4 @@
-Ce projet se présente comme une application web axée sur la fourniture d'informations météorologiques. Son fonctionnement repose sur des données de localisation, que l'utilisateur peut spécifier ou laisser détecter automatiquement à partir de sa position actuelle. Le projet est développé en utilisant JavaScript et intègre plusieurs modules et fonctionnalités clés :
+Ce projet se présente comme une application web axée sur la fourniture d'informations météorologiques. Son fonctionnement repose sur des données de localisation, que l'utilisateur peut spécifier ou laisser détecter automatiquement à partir de sa position actuelle. Le projet est développé en utilisant JavaScript,Tailwind CSS et intègre plusieurs modules et fonctionnalités clés :
 - Gestion de l'emplacement
 - Intégration de la recherche
 - Affichage des données météorologiques
