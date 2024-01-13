@@ -8,7 +8,7 @@ Ce projet se présente comme une application web axée sur la fourniture d'infor
 - 
 https://weather-iot.netlify.app/
   
-![weather-iot](https://github.com/dylanmdo/WeatherApp/assets/83838424/b49afe2a-1c58-45d4-88bf-91bcc08884c2)
+![weather](https://github.com/dylanmdo/WeatherApp/assets/83838424/ada102fb-83d0-433e-a35c-7e40b175c623)
 
 - Responsive Design
 
