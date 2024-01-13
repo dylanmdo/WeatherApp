@@ -5,7 +5,7 @@ Ce projet se présente comme une application web axée sur la fourniture d'infor
 - Affichage des données météorologiques
 - Indice de Qualité de l'Air (IQA)
 - Interface Utilisateur (UI) Réactive
-- 
+
 https://weather-iot.netlify.app/
   
 ![weather-iot](https://github.com/dylanmdo/WeatherApp/assets/83838424/ada102fb-83d0-433e-a35c-7e40b175c623)
