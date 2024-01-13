@@ -12,4 +12,4 @@ https://weather-iot.netlify.app/
 
 - Responsive Design
 
-![Responsive](https://github.com/dylanmdo/WeatherApp/assets/83838424/10c90d23-773b-47db-9ed0-ab9e1d060687)
+![Responsive](https://github.com/dylanmdo/WeatherApp/assets/83838424/a4a98566-aa1c-4855-8c1a-42ec92cc35ac)
