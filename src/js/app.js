@@ -45,24 +45,20 @@ export class App {
 
             const currentLocationBtn = document.querySelectorAll("[data-current-location-btn]");
 
-
             currentLocationBtn.forEach(element => {
                 if (element) {
                     if (window.location.hash === "#/current-location") {
                         element.setAttribute("disabled", "");
-                    }else {
+                    } else {
                         element.addEventListener("click", function () {
+                            currentLocationBtn.forEach(btn => btn.setAttribute("disabled", ""));
                             app.getCurrentLocation();
                         });
-                        element.removeAttribute("disabled");
                     }
-
                 }
             });
-
-
-
         });
+
 
 
     }
@@ -424,9 +420,6 @@ export class App {
         navigator.geolocation.getCurrentPosition(
             (position) => {
                 const { latitude, longitude } = position.coords;
-                console.log("Coordonnées de localisation obtenues :", latitude, longitude);
-
-                // Faites quelque chose avec les coordonnées obtenues, comme appeler une fonction pour mettre à jour les données météorologiques
                 this.updateWeather(`lat=${latitude}`, `lon=${longitude}`);
             },
         );
