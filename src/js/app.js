@@ -32,7 +32,7 @@ export class App {
         this.weatherForecast = document.querySelector("[data-weather-forecast]");
         //this.container = document.querySelector("[data-container]");
         this.loading = document.querySelector("[data-loading]");
-        //this.currentLocationBtn = document.querySelectorAll("[data-current-location-btn]");
+        const currentLocationBtn = document.querySelectorAll("[data-current-location-btn]");
         this.errorContent = document.querySelector("[data-error-content]");
 
 
@@ -40,32 +40,26 @@ export class App {
         this.searchCity(this.api);
 
 
-        document.addEventListener("DOMContentLoaded", function () {
-            const app = new App(); // Créez une instance de votre classe App
 
-            const currentLocationBtn = document.querySelectorAll("[data-current-location-btn]");
-
-            currentLocationBtn.forEach(element => {
-                if (element) {
-                    if (window.location.hash === "#/current-location") {
-                        element.setAttribute("disabled", "");
-                    } else {
-                        element.addEventListener("click", function () {
-                            currentLocationBtn.forEach(btn => btn.setAttribute("disabled", ""));
-                            app.getCurrentLocation();
-                        });
-                    }
+        currentLocationBtn.forEach(element => {
+            if (element) {
+                if (window.location.hash === "#/current-location") {
+                    element.setAttribute("disabled", "");
+                    element.classList.add("bg-neutral-800")
+                    element.classList.remove("bg-[#b6a1e5]")
+                } else {
+                    element.addEventListener("click", () => {
+                        currentLocationBtn.forEach(btn => btn.setAttribute("disabled", ""));
+                        element.classList.remove("bg-neutral-800")
+                        element.classList.add("bg-[#b6a1e5]")
+                        this.getCurrentLocation();
+                    });
                 }
-            });
+            }
         });
 
 
-
     }
-
-
-
-
 
 
     /**
@@ -419,7 +413,7 @@ export class App {
     getCurrentLocation() {
         navigator.geolocation.getCurrentPosition(
             (position) => {
-                const { latitude, longitude } = position.coords;
+                const {latitude, longitude} = position.coords;
                 this.updateWeather(`lat=${latitude}`, `lon=${longitude}`);
             },
         );
