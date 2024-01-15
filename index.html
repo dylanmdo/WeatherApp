@@ -17,7 +17,7 @@
 
         <!-- Barre de navigation -->
         <nav class="flex items-center justify-between py-5 px-3">
-            <a href="/">
+            <a href="#/current-location">
                 <h1 class="text-4xl font-semibold text-white">Weather</h1>
             </a>
 
@@ -27,7 +27,7 @@
                     <img src="/assets/magnifying-glass.svg" alt="Search" class="w-8">
                 </button>
 
-                <button type="button" class="bg-[#b6a1e5] p-2 rounded-full hover:opacity-80" data-current-location-btn>
+                <button class="bg-[#b6a1e5] p-2 rounded-full hover:opacity-80" data-current-location-btn>
                     <img src="/assets/crosshair.svg" alt="Current Location" class="w-8">
                 </button>
             </div>
@@ -55,7 +55,7 @@
             </div>
 
             <!-- Bouton pour obtenir la localisation actuelle (visible sur les écrans moyens et grands) -->
-            <button type="button" class="hidden md:flex items-center bg-[#b6a1e5] py-2 px-3 rounded-3xl gap-2 hover:opacity-80"
+            <button type="button" class="hidden md:flex items-center bg-[#b6a1e5] py-2 px-3 rounded-3xl gap-2 "
                     data-current-location-btn>
                 <img src="/assets/crosshair.svg" alt="Current Location">
                 <p class="text-black">Localisation</p>

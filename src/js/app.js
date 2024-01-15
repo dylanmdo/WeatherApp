@@ -32,14 +32,45 @@ export class App {
         this.weatherForecast = document.querySelector("[data-weather-forecast]");
         //this.container = document.querySelector("[data-container]");
         this.loading = document.querySelector("[data-loading]");
-        this.currentLocationBtn = document.querySelectorAll("[data-current-location-btn]");
+        //this.currentLocationBtn = document.querySelectorAll("[data-current-location-btn]");
         this.errorContent = document.querySelector("[data-error-content]");
 
 
         this.addEventOnElements(this.searchToggler, 'click', this.toggleSearch.bind(this));
         this.searchCity(this.api);
 
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const app = new App(); // Créez une instance de votre classe App
+
+            const currentLocationBtn = document.querySelectorAll("[data-current-location-btn]");
+
+
+            currentLocationBtn.forEach(element => {
+                if (element) {
+                    if (window.location.hash === "#/current-location") {
+                        element.setAttribute("disabled", "");
+                    }else {
+                        element.addEventListener("click", function () {
+                            app.getCurrentLocation();
+                        });
+                        element.removeAttribute("disabled");
+                    }
+
+                }
+            });
+
+
+
+        });
+
+
     }
+
+
+
+
+
 
     /**
      * Met à jour les données météo en fonction de la latitude et de la longitude.
@@ -47,6 +78,7 @@ export class App {
      * @param {number} lon - Longitude.
      */
     updateWeather(lat, lon) {
+
 
         this.errorContent.classList.add("hidden");
         this.errorContent.classList.remove("flex");
@@ -59,17 +91,6 @@ export class App {
         this.highLightSection.innerHTML = "";
         this.forecastHourly.innerHTML = "";
         this.weatherForecast.innerHTML = "";
-
-
-        this.currentLocationBtn.forEach(element => {
-
-            if (window.location.hash === "#/current-location") {
-                element.setAttribute("disabled", "");
-            } else {
-                element.removeAttribute("disabled");
-            }
-        });
-
 
         const card = document.createElement("div");
 
@@ -301,7 +322,7 @@ export class App {
 
     /**
      * Ajoute des écouteurs d'événements à une liste d'éléments DOM.
-     * @param {*[]} elements - Liste d'éléments DOM.
+     * @param {NodeListOf<Element>} elements - Liste d'éléments DOM.
      * @param {string} eventType - Type d'événement.
      * @param {Function} callback - Fonction de rappel à exécuter lors de l'événement.
      */
@@ -318,6 +339,7 @@ export class App {
         this.searchView.classList.toggle("max-md:search-view");
         this.searchView.classList.toggle("max-md:search-hide");
     }
+
 
     /**
      * Effectue une recherche de ville en fonction de la saisie dans le champ de recherche.
@@ -398,5 +420,16 @@ export class App {
     }
 
 
+    getCurrentLocation() {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                const { latitude, longitude } = position.coords;
+                console.log("Coordonnées de localisation obtenues :", latitude, longitude);
+
+                // Faites quelque chose avec les coordonnées obtenues, comme appeler une fonction pour mettre à jour les données météorologiques
+                this.updateWeather(`lat=${latitude}`, `lon=${longitude}`);
+            },
+        );
+    }
 }
 
