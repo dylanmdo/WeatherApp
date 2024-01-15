@@ -53,7 +53,6 @@ export class App {
                         element.classList.remove("bg-neutral-800")
                         element.classList.add("bg-[#b6a1e5]")
                         this.getCurrentLocation();
-                        location.reload();
                     });
                 }
             }
